@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Network Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- jQuery, DataTables, Chart.js -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="{{ url_for('static', filename='js/logs.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>📊 Network Dashboard Logs</h2>
+
+    <!-- Filter Form -->
+    <form>
+        <label>ISP:</label>
+        <select id="ispFilter">
+            <option value="All">All</option>
+            <option value="NKN">NKN</option>
+            <option value="BSNL1">BSNL1</option>
+            <option value="BSNL2">BSNL2</option>
+        </select>
+
+        <label>Timeframe:</label>
+        <select id="timeFilter" onchange="toggleDateInput()">
+            <option value="Today">Today</option>
+            <option value="ThisWeek">This Week</option>
+            <option value="ThisMonth">This Month</option>
+            <option value="ThisYear">This Year</option>
+            <option value="Custom">Custom Date Range</option>
+        </select>
+
+        <div id="customDateRange" style="display:none;">
+            <label>From:</label>
+            <input type="date" id="startDate">
+            <label>To:</label>
+            <input type="date" id="endDate">
+        </div>
+
+        <button type="button" onclick="loadLogs()">Load Logs</button>
+    </form>
+
+    <!-- Stats Cards -->
+    <section class="stats-overview">
+        <div class="stat-card">
+            <div class="stat-icon up"><i class="fas fa-arrow-up"></i></div>
+            <div class="stat-data">
+                <h3>Total Uptime</h3>
+                <p id="totalUptime">0 hours</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon down"><i class="fas fa-arrow-down"></i></div>
+            <div class="stat-data">
+                <h3>Total Downtime</h3>
+                <p id="totalDowntime">0 hours</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-percentage"></i></div>
+            <div class="stat-data">
+                <h3>Availability</h3>
+                <p id="availability">0%</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <div class="stat-data">
+                <h3>Outages</h3>
+                <p id="outages">0</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Charts -->
+    <div class="chart-container">
+        <canvas id="statsChart"></canvas>
+        <canvas id="pieChart"></canvas>
+        <canvas id="trendChart"></canvas>
+    </div>
+
+    <!-- Report Button -->
+    <button onclick="printStatsReport()" class="report-btn">Download PDF Report</button>
+
+    <!-- Logs Table -->
+    <!-- <h3>📑 Filtered Logs</h3>
+    <table id="logsTable" class="display">
+        <thead>
+            <tr>
+                <th>ISP</th>
+                <th>Downtime</th>
+                <th>Uptime</th>
+                <th>Difference</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table> -->
+
+    <!-- Log Output -->
+    <!-- <div id="logWindow"></div> -->
+
+</div>
+
+</body>
+</html>

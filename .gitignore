@@ -1,0 +1,20 @@
+# Python cache files
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv_flask/
+flask_env/
+
+# Logs or data files you don’t want to track
+logs/
+*.log
+
+# OS and editor-specific files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Environment variable files (if any)
+.env
