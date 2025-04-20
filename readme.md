@@ -4,6 +4,4 @@ pip install -r requirements.txt
 How to run it:
 python app.py
 
-Open http://127.0.0.1:5000/dashboard in browser.
-
-use userid "admin" and password "password"
+Open http://127.0.0.1:5000/dashboard in browser
