@@ -26,7 +26,7 @@ function loadLogs() {
         .then(data => {
             logInfo("Logs received from server.");
             console.log("Received data:", data);  // 👈 log this
-            // displayLogs(data.logs);
+            displayLogs(data.logs);
             updateStats(data);
         })
         
@@ -36,6 +36,7 @@ function loadLogs() {
 }
 
 function displayLogs(logs) {
+    console.log(logs);
     if (dataTable) {
         dataTable.destroy();
     }
@@ -50,10 +51,11 @@ function displayLogs(logs) {
         row.insertCell(2).innerHTML = log.Uptime;
         row.insertCell(3).innerHTML = log.Difference;
     });
-
+     
+    console.log(logs.length);
     dataTable = $('#logsTable').DataTable();
-    document.getElementById("logWindow").innerHTML = logs.length + " log(s) displayed.";
-    logInfo(logs.length + " log(s) displayed.");
+    // document.getElementById("logWindow").innerHTML = logs.length + " log(s) displayed.";
+    // logInfo(logs.length + " log(s) displayed.");
 }
 
 function updateStats(data) {
@@ -195,6 +197,23 @@ function printStatsReport() {
     reportWindow.focus();
     reportWindow.print();
     reportWindow.close();
+}
+
+
+function downloadLogs() {
+    const isp = document.getElementById('ispFilter').value;
+    const timeframe = document.getElementById('timeFilter').value;
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+
+    let url = `/download_logs?isp=${isp}&timeframe=${timeframe}`;
+
+    if (timeframe === "Custom") {
+        url += `&start_date=${startDate}&end_date=${endDate}`;
+    }
+
+    // Trigger the download
+    window.open(url, '_blank');
 }
 
 
